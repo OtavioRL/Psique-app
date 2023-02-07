@@ -1,0 +1,32 @@
+version: "3"
+# Serviços que serão upados
+services:
+  # Sobe o container da api
+  # node:
+  #   image: node:16.14
+  #   container_name: psique_api
+  #   build: ./
+  #   tty: true
+  #   stdin_open: true
+  #   command: bash
+  #   restart: always
+  #   working_dir: /app
+  #   volumes:
+  #     - ./:/app
+  #   depends_on:
+  #     - mongodb
+  #   ports:
+  #     - 3001:3001
+  # Sobe o container do banco    
+  mongodb:
+    image: mongo:5.0.7
+    container_name: psique_db  
+    volumes:
+      - ./:/app
+    restart: always
+    ports:
+      - 27017:27017
+# Rede padrão que será utilizada pelos containers
+networks:
+  default:
+    name: psique_shop_net  
