@@ -1,4 +1,4 @@
-import addProductService from '../Services/Products.service';
+import { addProductService, getAllProdutsService } from '../Services/Products.service';
 import { Request, Response } from 'express';
 
 const addProductController = async (req: Request, res: Response) => {
@@ -8,4 +8,13 @@ const addProductController = async (req: Request, res: Response) => {
   res.status(result.status).json(result.message);
 };
 
-export default addProductController;
+const getAllProductsController = async (req: Request, res: Response) => {
+  const result = await getAllProdutsService();
+  
+  res.status(result.status).json(result.message)
+};
+
+export {
+  addProductController,
+  getAllProductsController
+};

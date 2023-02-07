@@ -9,9 +9,20 @@ const addProductService = async (newProduct: IProduct) => {
   } catch(error: any) {
 
     return {status:  400, message: error.message};
-  }
-  
-  
+  }  
 };
 
-export default addProductService;
+const getAllProdutsService = async () => {
+  try {
+    const result = await Product.find();
+
+    return { status: 200, message: result };
+  } catch (error: any) {
+    return { status: 500, message: error.message };
+  }
+};
+
+export {
+  addProductService,
+  getAllProdutsService
+};
