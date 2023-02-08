@@ -9,8 +9,9 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Link } from "react-router-dom";
 
-export const mainListItems = (
+export const MainListItems = (
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
@@ -36,12 +37,14 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dados" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Produtos" />
-    </ListItemButton>
+    <Link to={'/products'} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText  primary="Produtos" />
+      </ListItemButton>
+    </Link>  
   </React.Fragment>
 );
 
