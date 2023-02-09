@@ -5,6 +5,12 @@ const app = express();
 
 app.use(express.json());
 
+app.use((_request, response, next) => {
+  response.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use('/products', ProductRoutes);
 
 app.get('/', (_req, res) => {res.status(200).json({ message: 'api is running' })});

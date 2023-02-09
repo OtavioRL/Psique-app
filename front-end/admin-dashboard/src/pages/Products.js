@@ -15,6 +15,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 
 function Copyright() {
   return (
@@ -29,11 +32,25 @@ function Copyright() {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const theme = createTheme();
 
 export default function Products() {
+  const [cards, setCards] = useState([]);
+  
+  
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios.get('http://localhost:3001/products');
+        setCards(res.data);
+        console.log(cards);
+      } catch (error) {
+        console.log(error);
+      }      
+    };
+
+    getProducts();
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -80,7 +97,7 @@ export default function Products() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card._id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -90,21 +107,21 @@ export default function Products() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image="https://source.unsplash.com/random"
+                    image={ card.imageUrl }
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Item
+                      { card.name }
                     </Typography>
                     <Typography>
-                      Descrição extensa do produto texto aleatorio só pra preencher um pouco mais de espaço
+                      { card.description }
                     </Typography>
                     <Typography sx={{ mt: 2 }}>
-                      150 R$
+                      {`${ card.price } R$`}
                     </Typography>
                     <Typography sx={{ mt: 2 }}>
-                      {`Quantidade em estoque: 10`}
+                      {`Quantidade em estoque: ${ card.stock }`}
                     </Typography>
                   </CardContent>
                   <CardActions>
