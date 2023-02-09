@@ -103,10 +103,7 @@ export default function Products() {
                 >
                   <CardMedia
                     component="img"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
+                    style={{ height: '100%', width: '100%', objectFit: 'cover' }}
                     image={ card.imageUrl }
                     alt="random"
                   />
