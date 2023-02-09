@@ -12,11 +12,13 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import AddProduct from '../components/AddProduct';
 
 
 function Copyright() {
@@ -32,10 +34,15 @@ function Copyright() {
   );
 }
 
+
+
 const theme = createTheme();
 
 export default function Products() {
   const [cards, setCards] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   
   
   useEffect(() => {
@@ -87,12 +94,20 @@ export default function Products() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">
+              <Button variant="contained" onClick={ handleOpen }>
                 Adicionar um produto
               </Button>
             </Stack>
           </Container>
         </Box>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <AddProduct />        
+      </Modal>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
