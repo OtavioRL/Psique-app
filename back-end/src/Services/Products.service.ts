@@ -25,6 +25,7 @@ const getAllProdutsService = async () => {
 const getProductByIdService = async (id: string) => {
   try {
     const result = await Product.findById(id);
+    if (result === null) return { status: 404, message: 'Id not found in the database'}
 
     return { status: 200, message: result }
   } catch (error: any) {
@@ -32,8 +33,19 @@ const getProductByIdService = async (id: string) => {
   }
 };
 
+const deleteProductByIdService = async (id: string) => {
+  try {
+    const result = await Product.deleteOne({ _id: id });
+
+    return { status: 204, message: result }
+  } catch (error: any) {
+    return { status: 404, message: error.message }
+  }
+};
+
 export {
   addProductService,
   getAllProdutsService,
-  getProductByIdService
+  getProductByIdService,
+  deleteProductByIdService
 };
