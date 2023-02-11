@@ -40,7 +40,12 @@ const theme = createTheme();
 
 export default function Products() {
   const [cards, setCards] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [imageUrl, setImageUrl] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
@@ -57,7 +62,28 @@ export default function Products() {
     };
 
     getProducts();
-  }, []);
+  }, [open]);
+
+  const handleSubmit = () => {
+    const addProduct = async () => {
+      try {
+        const res = await axios.post('http://localhost:3001/products/add', {
+          name,
+          description,
+          price,
+          stock,
+          imageUrl
+        });
+        console.log(res.status);
+        setOpen(false)
+      } catch (error) {
+        console.log(error);
+      }      
+    };
+
+    addProduct();
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -106,7 +132,19 @@ export default function Products() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <AddProduct />        
+        <AddProduct 
+          handleSubmit={ handleSubmit }
+          name={name}
+          description={description}
+          price={price}
+          stock={stock}
+          imageUrl={imageUrl}
+          setName={setName}
+          setDescription={setDescription}
+          setPrice={setPrice}
+          setStock={setStock}
+          setImageUrl={setImageUrl}
+        />        
       </Modal>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
