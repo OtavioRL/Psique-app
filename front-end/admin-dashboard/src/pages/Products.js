@@ -19,6 +19,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddProduct from '../components/AddProduct';
+import HandleDelete from '../components/HandleDelete';
 
 
 function Copyright() {
@@ -41,13 +42,22 @@ const theme = createTheme();
 export default function Products() {
   const [cards, setCards] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [imageUrl, setImageUrl] = useState('');
+  const [toBeDeletedId, setToBeDeletedId] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleDelete = ({ target }) => {
+    const { name } = target;
+
+    setToBeDeletedId(name);
+    setOpenDelete(true);
+  };
   
   
   useEffect(() => {
@@ -55,14 +65,13 @@ export default function Products() {
       try {
         const res = await axios.get('http://localhost:3001/products');
         setCards(res.data);
-        console.log(cards);
       } catch (error) {
         console.log(error);
       }      
     };
 
     getProducts();
-  }, [open]);
+  }, [open, openDelete]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -106,6 +115,12 @@ export default function Products() {
             </Stack>
           </Container>
         </Box>
+        <HandleDelete 
+          open={ openDelete } 
+          setOpen={ setOpenDelete }
+          id={ toBeDeletedId }
+
+        />
         <Modal
         open={open}
         onClose={handleClose}
@@ -154,8 +169,14 @@ export default function Products() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Editar</Button>
-                    <Button size="small">Excluir</Button>
+                    <Button 
+                      size="small"
+                    >Editar</Button>
+                    <Button 
+                      size="small"
+                      onClick={ handleDelete }
+                      name={ card._id }
+                    >Excluir</Button>
                   </CardActions>
                 </Card>
               </Grid>
