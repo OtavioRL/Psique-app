@@ -2,9 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import axios from 'axios';
-import { useState } from 'react';
+import AddButton from './AddButton';
 
 const modalStyle = {
   position: 'absolute',
@@ -24,10 +22,6 @@ const inputStyle = {
   mt: 2
 }
 
-const buttonStyle = {
-  mt: 4
-}
-
 const AddProduct = (props) => {
   const { 
     name, 
@@ -40,7 +34,7 @@ const AddProduct = (props) => {
     setStock, 
     imageUrl, 
     setImageUrl,
-    handleSubmit} = props;
+} = props;
   
 
   
@@ -126,10 +120,22 @@ const AddProduct = (props) => {
         variant="outlined" 
         onChange={ handlechange }
       />
-      <Button 
+      {/* <Button 
         onClick={handleSubmit}
-        sx={buttonStyle} 
-        variant="contained">Adicionar</Button>
+        sx={{ mt: 4}} 
+        variant="contained">Adicionar</Button>  */}
+      <AddButton
+      name={name}
+      description={description}
+      price={price}
+      stock={stock}
+      imageUrl={imageUrl}
+      setName={setName}
+      setDescription={setDescription}
+      setPrice={setPrice}
+      setStock={setStock}
+      setImageUrl={setImageUrl}
+      />
     </Box>
   );
 };

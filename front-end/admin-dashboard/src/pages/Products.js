@@ -64,26 +64,6 @@ export default function Products() {
     getProducts();
   }, [open]);
 
-  const handleSubmit = () => {
-    const addProduct = async () => {
-      try {
-        const res = await axios.post('http://localhost:3001/products/add', {
-          name,
-          description,
-          price,
-          stock,
-          imageUrl
-        });
-        console.log(res.status);
-        setOpen(false)
-      } catch (error) {
-        console.log(error);
-      }      
-    };
-
-    addProduct();
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -133,7 +113,6 @@ export default function Products() {
         aria-describedby="modal-modal-description"
       >
         <AddProduct 
-          handleSubmit={ handleSubmit }
           name={name}
           description={description}
           price={price}
