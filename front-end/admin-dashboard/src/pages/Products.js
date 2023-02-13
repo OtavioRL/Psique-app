@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddProduct from '../components/AddProduct';
 import HandleDelete from '../components/HandleDelete';
+import UpdateProduct from '../components/HandleEdit';
 
 
 function Copyright() {
@@ -43,14 +44,17 @@ export default function Products() {
   const [cards, setCards] = useState([]);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [imageUrl, setImageUrl] = useState('');
   const [toBeDeletedId, setToBeDeletedId] = useState('');
+  const [toBeEditedId, setToBeEditedId] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleCloseEdit = () => setOpenEdit(false);
 
   const handleDelete = ({ target }) => {
     const { name } = target;
@@ -58,6 +62,13 @@ export default function Products() {
     setToBeDeletedId(name);
     setOpenDelete(true);
   };
+
+  const handleEdit = ({ target }) => {
+    const { name } = target;
+
+    setToBeEditedId(name);
+    setOpenEdit(true);    
+  }
   
   
   useEffect(() => {
@@ -71,7 +82,7 @@ export default function Products() {
     };
 
     getProducts();
-  }, [open, openDelete]);
+  }, [open, openDelete, openEdit]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -140,6 +151,15 @@ export default function Products() {
           setImageUrl={setImageUrl}
         />        
       </Modal>
+      <Modal
+        open={ openEdit }
+        onClose={ handleCloseEdit }
+      >
+        <UpdateProduct 
+          id={ toBeEditedId }
+          handleCloseEdit={ handleCloseEdit }
+        />
+      </Modal>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
@@ -171,6 +191,8 @@ export default function Products() {
                   <CardActions>
                     <Button 
                       size="small"
+                      name={ card._id }
+                      onClick={ handleEdit }
                     >Editar</Button>
                     <Button 
                       size="small"

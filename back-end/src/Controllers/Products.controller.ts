@@ -1,4 +1,4 @@
-import { addProductService, getAllProdutsService, getProductByIdService, deleteProductByIdService } from '../Services/Products.service';
+import { addProductService, getAllProdutsService, getProductByIdService, deleteProductByIdService, updateProductByIdService } from '../Services/Products.service';
 import { Request, Response } from 'express';
 
 const addProductController = async (req: Request, res: Response) => {
@@ -28,9 +28,18 @@ const deleteProductByIdController = async (req: Request, res: Response) => {
   res.status(result.status).json(result.message);
 };
 
+const updateProductByIdController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const newProduct = req.body;
+  const result = await updateProductByIdService(id, newProduct);
+  
+  res.status(result.status).json(result.message);
+};
+
 export {
   addProductController,
   getAllProductsController,
   getProductByIdController,
-  deleteProductByIdController
+  deleteProductByIdController,
+  updateProductByIdController
 };

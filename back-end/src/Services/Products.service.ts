@@ -25,6 +25,7 @@ const getAllProdutsService = async () => {
 const getProductByIdService = async (id: string) => {
   try {
     const result = await Product.findById(id);
+    
     if (result === null) return { status: 404, message: 'Id not found in the database'}
 
     return { status: 200, message: result }
@@ -37,15 +38,31 @@ const deleteProductByIdService = async (id: string) => {
   try {
     const result = await Product.deleteOne({ _id: id });
 
+    if (result === null) return { status: 404, message: 'Id not found in the database'}
+
     return { status: 204, message: result }
   } catch (error: any) {
-    return { status: 404, message: error.message }
+    return { status: 400, message: error.message }
   }
 };
+
+const updateProductByIdService = async (id: string, updatedProduct: IProduct) => {
+  try {
+    const result = await Product.findByIdAndUpdate(id, updatedProduct, { new: true });
+
+    if (result === null) return { status: 404, message: 'Id not found in the database' }
+
+    return { status: 200, message: result };
+  } catch (error: any) {
+    return { status: 400, message: error.message };
+  }
+};
+
 
 export {
   addProductService,
   getAllProdutsService,
   getProductByIdService,
-  deleteProductByIdService
+  deleteProductByIdService,
+  updateProductByIdService
 };

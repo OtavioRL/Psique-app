@@ -13,7 +13,6 @@ export default function HandleDelete({ open, setOpen, id }) {
   const handleDelete = () => {
     const del = async () => {
       try {
-        console.log(id);
         const res = await axios.delete(`http://localhost:3001/products/${id}`);
         handleClose();
         console.log(res.statusText);       
@@ -55,13 +54,12 @@ export default function HandleDelete({ open, setOpen, id }) {
         <Box sx= { backDropStyle }>
           <Typography variant="h6" color="text.primary">Tem certeza que deseja excluir o produto do banco de dados?</Typography>
           <Box sx={buttonsWrapper}>
-          <Button variant="contained" color="error" onClick={ handleDelete }>
-            Excluir permanentemente
-          </Button>
           <Button onClick={ handleClose }>
             Cancelar
           </Button>
-          
+          <Button variant="contained" color="error" onClick={ handleDelete }>
+            Excluir permanentemente
+          </Button>
           </Box>
         </Box>
       </Modal>
