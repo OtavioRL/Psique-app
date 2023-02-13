@@ -16,11 +16,12 @@ import Modal from '@mui/material/Modal';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
+import Context from '../Context/context';
 import axios from 'axios';
-import AddProduct from '../components/AddProduct';
-import HandleDelete from '../components/HandleDelete';
-import UpdateProduct from '../components/HandleEdit';
+import AddProduct from '../components/productsComponents/AddProduct/AddProduct';
+import HandleDelete from '../components/productsComponents/DeleteProduct/HandleDelete';
+import UpdateProduct from '../components/productsComponents/UpdateProduct/UpdateProduct';
 
 
 function Copyright() {
@@ -41,34 +42,21 @@ function Copyright() {
 const theme = createTheme();
 
 export default function Products() {
-  const [cards, setCards] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
-  const [imageUrl, setImageUrl] = useState('');
-  const [toBeDeletedId, setToBeDeletedId] = useState('');
-  const [toBeEditedId, setToBeEditedId] = useState('');
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const handleCloseEdit = () => setOpenEdit(false);
+  const {
+    cards, setCards,
+    open,
+    openDelete, setOpenDelete,
+    openEdit,
+    toBeDeletedId,
+    toBeEditedId,
+    handleOpen,
+    handleClose,
+    handleCloseEdit,
+    handleDelete,
+    handleEdit,
+  } = useContext(Context);
 
-  const handleDelete = ({ target }) => {
-    const { name } = target;
-
-    setToBeDeletedId(name);
-    setOpenDelete(true);
-  };
-
-  const handleEdit = ({ target }) => {
-    const { name } = target;
-
-    setToBeEditedId(name);
-    setOpenEdit(true);    
-  }
+  
   
   
   useEffect(() => {
@@ -138,18 +126,7 @@ export default function Products() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <AddProduct 
-          name={name}
-          description={description}
-          price={price}
-          stock={stock}
-          imageUrl={imageUrl}
-          setName={setName}
-          setDescription={setDescription}
-          setPrice={setPrice}
-          setStock={setStock}
-          setImageUrl={setImageUrl}
-        />        
+        <AddProduct />        
       </Modal>
       <Modal
         open={ openEdit }

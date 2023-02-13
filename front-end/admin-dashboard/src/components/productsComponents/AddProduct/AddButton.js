@@ -7,8 +7,10 @@ import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
+import Context from '../../../Context/context';
+import { useContext } from 'react';
 
-export default function AddButton(props) {
+export default function AddButton() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const timer = React.useRef();
@@ -24,7 +26,7 @@ export default function AddButton(props) {
     setStock, 
     imageUrl, 
     setImageUrl,
-} = props;
+} = useContext(Context);
 
   const buttonSx = {
     ...(success && {

@@ -8,6 +8,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
 
+
 export default function AddButton(props) {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -60,7 +61,7 @@ export default function AddButton(props) {
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
-      }, 2000);
+      }, 1000);
     }
   };
 

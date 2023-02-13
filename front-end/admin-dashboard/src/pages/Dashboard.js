@@ -17,10 +17,10 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { MainListItems, secondaryListItems } from '../components/ListItems';
-import Chart from '../components/Chart';
-import Deposits from '../components/Deposits';
-import Orders from '../components/Orders';
+import { MainListItems, secondaryListItems } from '../components/dashboardComponents/ListItems';
+import Chart from '../components/dashboardComponents/Chart';
+import Deposits from '../components/dashboardComponents/Deposits';
+import Orders from '../components/dashboardComponents/Orders';
 
 function Copyright(props) {
   return (

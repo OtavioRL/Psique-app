@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import AddButton from './AddButton';
+import Context from '../../../Context/context';
+import { useContext } from 'react';
 
 const modalStyle = {
   position: 'absolute',
@@ -22,7 +24,7 @@ const inputStyle = {
   mt: 2
 }
 
-const AddProduct = (props) => {
+const AddProduct = () => {
   const { 
     name, 
     setName, 
@@ -34,10 +36,7 @@ const AddProduct = (props) => {
     setStock, 
     imageUrl, 
     setImageUrl,
-} = props;
-  
-
-  
+} = useContext(Context);
 
   const handlechange = ({target}) => {
     const { name, value } = target;
@@ -120,22 +119,7 @@ const AddProduct = (props) => {
         variant="outlined" 
         onChange={ handlechange }
       />
-      {/* <Button 
-        onClick={handleSubmit}
-        sx={{ mt: 4}} 
-        variant="contained">Adicionar</Button>  */}
-      <AddButton
-      name={name}
-      description={description}
-      price={price}
-      stock={stock}
-      imageUrl={imageUrl}
-      setName={setName}
-      setDescription={setDescription}
-      setPrice={setPrice}
-      setStock={setStock}
-      setImageUrl={setImageUrl}
-      />
+      <AddButton />
     </Box>
   );
 };

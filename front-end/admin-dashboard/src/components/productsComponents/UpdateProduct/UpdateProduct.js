@@ -24,7 +24,7 @@ const inputStyle = {
   mt: 2
 }
 
-const UpdateProduct = ({ id, handleCloseEdit }) => {
+const UpdateProduct = ({ id }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
@@ -141,7 +141,6 @@ const UpdateProduct = ({ id, handleCloseEdit }) => {
         setStock={setStock}
         setImageUrl={setImageUrl}
         id={ id }
-        handleCloseEdit={ handleCloseEdit }
       />
     </Box>
   );
